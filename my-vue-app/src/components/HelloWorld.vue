@@ -1,32 +1,20 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import ButtonComponent from './ButtonComponent.vue';
+import { useCounter } from '../composables/userCounter';
 
 export default defineComponent({
   name: "HelloWorld",
-  components: {
-    ButtonComponent,
-  },
   setup() {
     const message = ref<string>("Hello Vue 3 with TypeScript!");
-    const count = ref<number>(0);
-    const increment  = () => {
-      count.value++;
-    };
+    const { count, increment, decrement} = useCounter(10);
 
-    const clickCount = ref<number>(0);
-
-    const handleButtonClick = () => {
-      clickCount.value++;
-    }
-
+  
     return {
       message,
       count,
       increment,
-      clickCount,
-      handleButtonClick,
+      decrement,
     };
   },
 
@@ -38,10 +26,10 @@ export default defineComponent({
 <template>
   <div>
     <h1>{{ message }}</h1>
-    <button @click="increment">Count is:{{ count }}</button> 
-    <button-component label="Click me!" @click="handleButtonClick" />
-    <p>You clicked the button {{ clickCount }} times.</p>
-   </div>
+    <p>Count: {{ count }}</p>
+    <button @click="increment">Increment</button>
+    <button @click="decrement">Decrement</button>
+   </div> 
 </template>
 
 

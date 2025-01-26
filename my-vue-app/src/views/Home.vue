@@ -8,7 +8,10 @@ export default defineComponent({
 
 <template>
     <div>
-        <h1>Welcome to the home page</h1>
-        <p>This is the main landing page of the application.</p>
+        <h1>Home</h1>
+        <ul>
+            <li><router-link to="/user/1">View User 1</router-link></li>
+            <li><router-link to="/user/2">View User 2</router-link></li>
+        </ul>
     </div>
 </template>

@@ -3,7 +3,7 @@ import Home from "../views/Home.vue";
 import About from "../views/About.vue";
 import UserDetails from "../views/UserDetails.vue"
 
-const isAuthenticated = false;
+const isAuthenticated = true;
 
 const routes = [
     {

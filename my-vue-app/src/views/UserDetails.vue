@@ -31,6 +31,7 @@ export default defineComponent ({
         onMounted(fetchUser);
 
         return {
+            userId,
             user,
             loading,
         }
@@ -45,6 +46,7 @@ export default defineComponent ({
         <div v-else-if="user">
             <p><strong>Name</strong>{{  user.name }}</p>
             <p><strong>Email</strong>{{  user.email }}</p>
+            <router-link :to="`/users/${userId}/edit`">Edit User</router-link>
         </div>
         <p v-else>User not found</p>
     </div>

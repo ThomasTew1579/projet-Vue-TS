@@ -37,6 +37,7 @@ export default defineComponent({
 <template>
     <div>
         <h1>Users</h1>
+        <router-link to="/user/new">Creat New User</router-link>
         <p v-if="loading">Loading users...</p>
         <ul v-else>
             <li v-for="user in users" :key="user.id">

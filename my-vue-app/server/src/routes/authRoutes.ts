@@ -33,7 +33,7 @@ router.post("/login", async (req: Request, res: Response) => {
     }
 });
 
-router.get("/users", authenticate, async (req, res) => {
+router.get("/users", async (req, res) => {
     const user = await getUsers();
     res.json(user);
 });

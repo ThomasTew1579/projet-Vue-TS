@@ -5,8 +5,11 @@ import apiClient from '../api/axios';
 
 interface User {
     id: number;
+    isername: string;
     name: string;
     email: string;
+    password: string;
+    role: string;
 }
 
 export default defineComponent ({
@@ -43,11 +46,37 @@ export default defineComponent ({
     <div>
         <h1>User details</h1>
         <p v-if="loading">Loading...</p>
-        <div v-else-if="user">
+        <div v-else-if="user" class="user">
+            <p><strong>Username</strong>{{  user.username }}</p>
             <p><strong>Name</strong>{{  user.name }}</p>
             <p><strong>Email</strong>{{  user.email }}</p>
+            <p><strong>Password (hased)</strong><span class="pswd">{{  user.password }}</span></p>
+            <p><strong>Role</strong>{{  user.role }}</p>
             <router-link :to="`/users/${userId}/edit`">Edit User</router-link>
         </div>
         <p v-else>User not found</p>
     </div>
 </template>
+
+<style scoped>
+    .user {
+        & p {
+            display: flex;
+            gap: 4px;
+            padding: 4px;
+
+            .pswd {
+                opacity: 0.1;
+                transition: .2s;
+                &:hover {
+                    opacity: 1;
+                }
+            }
+            
+            & strong:after {
+                content:" :";
+            }
+        }
+    }
+</style>
+

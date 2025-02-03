@@ -46,3 +46,25 @@ export const removeUser = async (id: number): Promise<boolean> => {
     const result = await userRepository.delete(id);
     return (result.affected ?? 0) > 0;
 }
+
+export const updateUser = async (id: number , name: string, username: string, email: string, password: string, role: string): Promise<string> => {
+    const user = await getUserById(id);
+    if(!user) {
+        throw new Error("User not found");
+    }
+
+    if(username) user.username = username;
+    if(name) user.name = name;
+    if(email) user.email = email;
+    if(email) user.email = email;
+    if(password) {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        user.password = hashedPassword;
+    }
+
+    console.log("user =", user)
+
+    const updatedUser = userRepository.create({id, name, username, email, password, role});
+    const result = await userRepository.save(updatedUser);
+    return "User registered successfully";
+}

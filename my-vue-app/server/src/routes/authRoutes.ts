@@ -1,6 +1,7 @@
 import express, { Request, Response} from "express";
-import { signup, login , getUsers, getUserById, removeUser} from "../controllers/authController";
+import { signup, login , getUsers, getUserById, removeUser, updateUser} from "../controllers/authController";
 import { authenticate, checkRole } from "../middleware/authMiddleware";
+import bcrypt from "bcrypt";
 
 
 const router = express.Router();
@@ -53,6 +54,20 @@ router.delete("/users/:id", authenticate, checkRole(["admin"]), async (req, res)
         res.send("User deleted");
     } else {
         res.status(404).send("User not found");
+    }
+});
+
+router.put("/users/:id" , async (req, res) => {
+    const id = Number(req.params.id);
+    const {name, username, email, password, role} = req.body;
+
+    try {
+        await updateUser(id, name, username, email, password, role)
+        
+        res.status(200).json({message: "User updated successfully"});
+    } catch (error) {
+        console.error("Error updating user:", error);
+        res.status(500).json({message: "Internal server error"});
     }
 });
 

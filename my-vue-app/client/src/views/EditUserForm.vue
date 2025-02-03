@@ -11,14 +11,17 @@ export default defineComponent ({
         const userId = route.params.id as string;
 
         const form = ref({
-            name:"",
-            email:"",
+            name: "",
+            username: "",
+            email: "",
+            password:"",
+            role:"",
         });
 
         const fetchUser = async () => {
             try {
-                const response = apiClient.get(`/users/${userId}`);
-                form.value = (await response).data;
+                const response = await apiClient.get(`/users/${userId}`);
+                form.value = response.data;
             } catch(error) {
                 console.error("Error fecthing user :", error);
                 alert("Failed to load user data.");
@@ -30,7 +33,7 @@ export default defineComponent ({
             try {
                 await apiClient.put(`/users/${userId}`, form.value);
                 alert("User update successfully!");
-                router.push(`/users/${userId}`);
+                router.push(`/user/${userId}`);
             } catch(error) {
                 console.error("Error updating user :", error);
                 alert("Failed to update user.");
@@ -55,11 +58,26 @@ export default defineComponent ({
         <form @submit.prevent ="handleSubmit">
             <div>
                 <label for="name">Name:</label>
-                <input v-model="form.name" type="text" id="name" required>
+                <input v-model="form.name" id="name" type="text" required />
             </div>
             <div>
-                <label for="email">E-mail:</label>
-                <input v-model="form.email" type="email" id="email" required>
+                <label for="username">Username:</label>
+                <input v-model="form.username" id="username" type="text" required />
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input v-model="form.email" id="email" type="email" required />
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input v-model="form.password" id="password" type="password" required />
+            </div>
+            <div>
+                <label for="role">Choose a role:</label>
+                <select v-model="form.role" id="role">
+                    <option>Admin</option>
+                    <option>User</option>
+                </select>
             </div>
             <button type="submit">Save Change</button>
         </form>

@@ -75,8 +75,8 @@ export default defineComponent ({
             <div>
                 <label for="role">Choose a role:</label>
                 <select v-model="form.role" id="role">
-                    <option>Admin</option>
-                    <option>User</option>
+                    <option>admin</option>
+                    <option>user</option>
                 </select>
             </div>
             <button type="submit">Save Change</button>

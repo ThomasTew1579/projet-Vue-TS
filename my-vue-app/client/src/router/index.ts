@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import UserDetails from "../views/UserDetails.vue";
-import UseForm from "../views/UseForm.vue";
+import UserForm from "../views/UserForm.vue";
 import EditUserForm from "../views/EditUserForm.vue";
 
 
@@ -26,7 +26,7 @@ const routes = [
     {
         path: "/user/new", 
         name: "UserForm", 
-        component: UseForm,
+        component: UserForm,
     },
     {
         path: "/user/:id/edit", 

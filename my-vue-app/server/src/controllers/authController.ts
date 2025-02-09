@@ -56,13 +56,11 @@ export const updateUser = async (id: number , name: string, username: string, em
     if(username) user.username = username;
     if(name) user.name = name;
     if(email) user.email = email;
-    if(email) user.email = email;
     if(password) {
         const hashedPassword = await bcrypt.hash(password, 10);
         user.password = hashedPassword;
     }
-
-    console.log("user =", user)
+    if(role) user.role = role;
 
     const updatedUser = userRepository.create({id, name, username, email, password, role});
     const result = await userRepository.save(updatedUser);

@@ -34,12 +34,12 @@ router.post("/login", async (req: Request, res: Response) => {
     }
 });
 
-router.get("/users", async (req, res) => {
+router.get("/users",authenticate, checkRole(["admin", "user"]), async (req, res) => {
     const user = await getUsers();
     res.json(user);
 });
 
-router.get("/users/:id", async (req, res) => {
+router.get("/users/:id",authenticate,  async (req, res) => {
     const user = await getUserById(Number(req.params.id));
     if (user) {
         res.json(user);
@@ -57,7 +57,7 @@ router.delete("/users/:id", authenticate, checkRole(["admin"]), async (req, res)
     }
 });
 
-router.put("/users/:id" , async (req, res) => {
+router.put("/users/:id" , authenticate, checkRole(["admin"]) ,  async (req, res) => {
     const id = Number(req.params.id);
     const {name, username, email, password, role} = req.body;
 

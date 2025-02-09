@@ -1,11 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
-import About from "../views/About.vue";
+import Login from "../views/Login.vue";
 import UserDetails from "../views/UserDetails.vue";
 import UseForm from "../views/UseForm.vue";
 import EditUserForm from "../views/EditUserForm.vue";
 
-const isAuthenticated = true;
 
 const routes = [
     {
@@ -14,9 +13,9 @@ const routes = [
         component: Home,
     },
     {
-        path: "/about",
-        name: "About",
-        component: About,
+        path: "/login",
+        name: "login",
+        component: Login,
     },
     {
         path: "/user/:id", 
@@ -42,9 +41,13 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
+    const isAuthenticated = !!localStorage.getItem("token");
+
     if (to.meta.requiresAuth && !isAuthenticated) {
+        alert("You must be logged in to access this page.");
+
         next({
-            path: "/"
+            path: "/login"
         });
     } else {
         next();
